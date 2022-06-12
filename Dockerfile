@@ -1,5 +1,5 @@
 # use a centos base image
-FROM centos
+FROM centos:centos7.9.2009
 
 # update our server
 RUN yum update -y
