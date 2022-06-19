@@ -1,11 +1,11 @@
 # use a centos base image
-FROM centos:centos7.9.2009
-
-# update our server
-RUN yum update -y
+FROM tomcat
 
 # set maintainer
 LABEL maintainer "info@apotians.com"
+
+# This command will copy our war file into the docker image we are creating
+COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
 
 # set a health check
 # HEALTHCHECK --interval=5s \
@@ -14,4 +14,3 @@ LABEL maintainer "info@apotians.com"
 
 # tell docker what port to expose
 EXPOSE 8080
-
