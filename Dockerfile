@@ -1,5 +1,6 @@
 # use a centos base image
-FROM tomcat
+FROM centos
+RUN yum update -y
 
 # set maintainer
 LABEL maintainer "info@apotians.com"
