@@ -5,4 +5,4 @@ It includes a `Dockerfile` for building a Docker image with the application, and
 
 https://www.apotians.com
 
-### I am called Mr. Eri
+### I am called Mr. Apoti
