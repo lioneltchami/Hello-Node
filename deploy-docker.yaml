@@ -56,6 +56,7 @@
         group: ubuntu
     - name: Start the container
       docker_container:
+        name: app_maven_001
         image: "apotieri/app_maven_001"
         state: started
         published_ports: 
