@@ -54,3 +54,9 @@
         path: /usr/local/bin/docker-compose
         owner: ubuntu
         group: ubuntu
+    - name: Start the container
+      docker_container:
+        image: "apotieri/app_maven_001"
+        state: started
+        published_ports: 
+          - 0.0.0.0:8080:8080
