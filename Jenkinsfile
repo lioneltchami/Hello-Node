@@ -1,36 +1,44 @@
-node {
-    def app
+pipeline {
+    agent any
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M2_HOME"
     }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("releaseworks/hellonode")
-    }
-
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests passed"'
+    stages {
+        stage('GIT CHECKOUT') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/apotitech/Hello-Node.git'
+            }
         }
-    }
+        stage('MAVEN BUILD') {
+            steps {
+                // Get some code from a GitHub repository
+                sh "mvn clean install package"
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                // Get some code from a GitHub repository
+                sh "docker build -t apotieri/app_maven_001 ."
+            }
+        }
+        stage('DOCKER PUSH') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+                   sh  "docker login -u ${user} -p ${pwd}"
+                    }
 
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+                // Get some code from a GitHub repository
+                    sh "docker push apotieri/app_maven_001"
+            }
+        }
+        stage('DOCKER DEPLOY') {
+            steps {
+                    ansiblePlaybook credentialsId: 'dev', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yaml'
+            }
         }
     }
 }
