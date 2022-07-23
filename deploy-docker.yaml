@@ -2,15 +2,15 @@
 - hosts: dev
   become: true
   tasks:
-    - name: Install docker-py python module
-      ansible.builtin.pip:
-        name: docker
-        state: present
-    
     - name: install pip3
       apt: 
          name: python3-pip 
          state: present 
+    
+    - name: Install docker-py python module
+      ansible.builtin.pip:
+        name: docker
+        state: present
     
     - name: Start the container
       docker_container:
