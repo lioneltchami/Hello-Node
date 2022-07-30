@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: hello-whale-container
-        image: vamsijakkula/hellowhale:latest
+        image: apotieri/httpd:alpine
         imagePullPolicy: Always
         ports:
         - containerPort: 80
