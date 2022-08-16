@@ -29,15 +29,24 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
                    sh  "docker login -u ${user} -p ${pwd}"
-                    }
-
-                // Get some code from a GitHub repository
-                    sh "docker push apotieri/app_maven_001"
+                   sh "docker push apotieri/app_maven_001"
+                    }                    
             }
         }
         stage('DOCKER DEPLOY') {
             steps {
-                    ansiblePlaybook credentialsId: 'dev', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yaml'
+            sshagent(['asdasdasd']) {
+                                sh "scp -r -o StrictHostKeyChecking=no hellowhale.yaml ubuntu@34.229.50.194:/home/ubuntu"
+                script{
+						try{
+							sh "ssh ubuntu@34.229.50.194 kubectl apply -f ."
+
+							}catch(error)
+							{
+                            sh "ssh ubuntu@34.229.50.194 kubectl create -f ."
+							}
+					}
+        }
             }
         }
     }
