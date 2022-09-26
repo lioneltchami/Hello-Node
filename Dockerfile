@@ -2,7 +2,7 @@
 FROM tomcat
 
 # set maintainer
-LABEL maintainer "info@apotians.com"
+LABEL maintainer "info@apotians.tech"
 
 # This command will copy our war file into the docker image we are creating
 COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
