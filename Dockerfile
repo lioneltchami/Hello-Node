@@ -2,10 +2,10 @@
 FROM tomcat
 
 # set maintainer
-LABEL maintainer "info@apotians.com"
+LABEL maintainer "Mr. Apoti"
 
 # This command will copy our war file into the docker image we are creating
-# COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
+COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
 
 # set a health check
 # HEALTHCHECK --interval=5s \
