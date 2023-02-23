@@ -4,7 +4,7 @@ RUN  apt-get update -y
 
 # set maintainer
 LABEL maintainer "info@apotians.com"
-
+# Another change made
 # This command will copy our war file into the docker image we are creating
 #`  COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
 
