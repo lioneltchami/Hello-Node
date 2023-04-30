@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven"
+        maven "M2_HOME"
     }
 
     stages {
@@ -31,6 +31,22 @@ pipeline {
                    sh  "docker login -u ${user} -p ${pwd}"
                    sh "docker push apotieri/app_maven_001"
                     }                    
+            }
+        }
+        stage('DOCKER DEPLOY') {
+            steps {
+            sshagent(['asdasdasd']) {
+                                sh "scp -r -o StrictHostKeyChecking=no hellowhale.yaml ubuntu@34.229.50.194:/home/ubuntu"
+                script{
+						try{
+							sh "ssh ubuntu@34.229.50.194 kubectl apply -f ."
+
+							}catch(error)
+							{
+                            sh "ssh ubuntu@34.229.50.194 kubectl create -f ."
+							}
+					}
+        }
             }
         }
     }
