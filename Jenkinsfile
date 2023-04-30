@@ -33,21 +33,5 @@ pipeline {
                     }                    
             }
         }
-        stage('DOCKER DEPLOY') {
-            steps {
-            sshagent(['asdasdasd']) {
-                                sh "scp -r -o StrictHostKeyChecking=no hellowhale.yaml ubuntu@34.229.50.194:/home/ubuntu"
-                script{
-						try{
-							sh "ssh ubuntu@34.229.50.194 kubectl apply -f ."
-
-							}catch(error)
-							{
-                            sh "ssh ubuntu@34.229.50.194 kubectl create -f ."
-							}
-					}
-        }
-            }
-        }
     }
 }
