@@ -34,17 +34,24 @@ pipeline {
         stage('DOCKER PUSH') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
-                   sh  "docker login -u ${user} -p ${pwd}"
+                   sh "docker login -u ${user} -p ${pwd}"
                    sh "docker push apotieri/app_maven_001"
                     }                    
             }
         }
-       stage('Deploy to kubernetes'){
-        steps{
-            
-            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'petclinic.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-		       echo "Deployment Finished ..."
+        
+        stage('TF Plan') {
+            steps {
+                sh 'terraform init'
+                sh 'terraform plan -out myplan'
+                    }                    
         }
-       }
+
+        stage('TF Apply - Deploy To Kubernetes'){
+            steps{ 
+                sh 'terraform apply -input=false myplan'
+        }
+        }
+       
     }
 }
