@@ -29,7 +29,6 @@ provider "kubernetes" {
 resource "kubernetes_deployment" "test" {
   metadata {
     name      = "appmaven002"
-    namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     replicas = 2
