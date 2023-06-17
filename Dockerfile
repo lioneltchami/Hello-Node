@@ -5,7 +5,7 @@ FROM tomcat
 LABEL maintainer "Apoti"
 
 # This command will copy our war file into the docker image we are creating
-COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
+#COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps
 
 # set a health check
 # HEALTHCHECK --interval=5s \
