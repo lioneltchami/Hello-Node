@@ -1,0 +1,12 @@
+---
+- name: Copy files from host to remote servers
+  hosts: saturday
+  tasks:
+    - name: Copying files from remote to servers and assigning permissions
+      become: true
+      copy:
+        src: /tmp/anaconda.log
+        dest: /tmp/ana-class.log
+        owner: root
+        group: root
+        mode: 0777
