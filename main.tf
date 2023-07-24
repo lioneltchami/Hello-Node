@@ -8,10 +8,10 @@ module "our_ec2_instance" {
   name = "our-sunday-single-instance"
 
   instance_type          = "t2.micro"
-  key_name               = "sunday-keypair"
+  key_name               = "3tier"
   monitoring             = true
-  vpc_security_group_ids = ["sg-04d73380e2b0793bd"]
-  subnet_id              = "subnet-0027c55b8c8c2ebdc"
+  vpc_security_group_ids = ["sg-0fe77998f5ef437d8"]
+  subnet_id              = "subnet-0ba15e533f468923a"
 
   tags = {
     Terraform   = "true"
