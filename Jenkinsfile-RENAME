@@ -17,7 +17,7 @@ pipeline {
         }
         stage('DOCKER PUSH') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+                withCredentials([usernamePassword(credentialsId: 'hhd', passwordVariable: 'pwd', usernameVariable: 'user')]) {
                    sh "docker login -u ${user} -p ${pwd}"
                    sh "docker push apotieri/app_maven_001"
                     }                    
