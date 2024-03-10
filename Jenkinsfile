@@ -28,30 +28,16 @@ pipeline {
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
-                sh "docker build -t apotieri/app_maven_001 ."
+                sh "docker build -t devcloudninjas/app_maven_001 ."
             }
         }
         stage('DOCKER PUSH') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
-                   sh "docker login -u ${user} -p ${pwd}"
-                   sh "docker push apotieri/app_maven_001"
+                withCredentials([usernamePassword(credentialsId: 'dcn-docker', passwordVariable: 'pwd', usernameVariable: 'usr')]) {
+                   sh "docker login -u ${usr} -p ${pwd}"
+                   sh "docker push devcloudninjas/app_maven_001"
                     }                    
             }
         }
-        
-        stage('TF Plan') {
-            steps {
-                sh 'terraform init'
-                sh 'terraform plan -out myplan'
-                    }                    
-        }
-
-        stage('TF Apply - Deploy To Kubernetes'){
-            steps{ 
-                sh 'terraform apply -input=false myplan'
-        }
-        }
-       
     }
 }
