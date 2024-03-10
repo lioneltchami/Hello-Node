@@ -1,5 +1,5 @@
 # use a centos base image
-FROM tomcat
+FROM tomcat:jdk21
 
 # set maintainer
 LABEL maintainer "Apoti"
