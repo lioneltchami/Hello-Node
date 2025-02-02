@@ -19,12 +19,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/apotitech/Hello-Node.git'
             }
         }
-        stage('MAVEN BUILD') {
-            steps {
-                // Get some code from a GitHub repository
-                sh "mvn clean install package"
-            }
-        }
+        // stage('MAVEN BUILD') {
+        //     steps {
+        //         // Get some code from a GitHub repository
+        //         sh "mvn clean install package"
+        //     }
+        // }
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
@@ -33,7 +33,7 @@ pipeline {
         }
         stage('DOCKER PUSH') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dcn-docker', passwordVariable: 'pwd', usernameVariable: 'usr')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'pwd', usernameVariable: 'usr')]) {
                    sh "docker login -u ${usr} -p ${pwd}"
                    sh "docker push devcloudninjas/app_maven_001"
                     }                    
