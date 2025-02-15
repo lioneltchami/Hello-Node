@@ -28,14 +28,14 @@ pipeline {
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
-                sh "docker build -t devcloudninjas/app_maven_001 ."
+                sh "docker build -t apotieri/app_maven_001 ."
             }
         }
         stage('DOCKER PUSH') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'pwd', usernameVariable: 'usr')]) {
                    sh "docker login -u ${usr} -p ${pwd}"
-                   sh "docker push devcloudninjas/app_maven_001"
+                   sh "docker push apotieri/app_maven_007"
                     }                    
             }
         }
