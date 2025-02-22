@@ -1,16 +1,16 @@
 pipeline {
     agent any
-    environment {
-        PROJECT_ID = 'bold-physics-383802'
-        CLUSTER_NAME = 'cluster-1'
-        LOCATION = 'us-central1-c'
-        CREDENTIALS_ID = 'bold-physics-383802'
-    }
-
-    // tools {
-    //     // Install the Maven version configured as "M3" and add it to the path.
-    //     maven "maven"
+    // environment {
+    //     PROJECT_ID = 'bold-physics-383802'
+    //     CLUSTER_NAME = 'cluster-1'
+    //     LOCATION = 'us-central1-c'
+    //     CREDENTIALS_ID = 'bold-physics-383802'
     // }
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven"
+    }
 
     stages {
         stage('GIT CHECKOUT') {
@@ -19,12 +19,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/apotitech/Hello-Node.git'
             }
         }
-        // stage('MAVEN BUILD') {
-        //     steps {
-        //         // Get some code from a GitHub repository
-        //         sh "mvn clean install package"
-        //     }
-        // }
+        stage('MAVEN BUILD') {
+            steps {
+                // Get some code from a GitHub repository
+                sh "mvn clean install package"
+            }
+        }
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
