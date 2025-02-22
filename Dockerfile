@@ -5,7 +5,7 @@ FROM tomcat:jdk21
 LABEL maintainer "Apoti"
 
 # This command will copy our war file into the docker image we are creating
-COPY ./var/lib/docker/volumes/jenkins_home/_data/workspace/maven build/webapp/target/webapp.war /usr/local/tomcat/webapps
+COPY ./var/lib/docker/volumes/jenkins_home/_data/workspace/maven\ build/webapp/target/webapp.war /usr/local/tomcat/webapps
 
 # set a health check
 # HEALTHCHECK --interval=5s \
