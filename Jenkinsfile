@@ -28,7 +28,7 @@ pipeline {
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
-                sh "docker build -t apotieri/app_maven_007 ."
+                sh "docker build -t apotieri/app_maven_007 . /var/lib/docker/volumes/jenkins_home/_data/workspace/buildmaven"
             }
         }
         stage('DOCKER PUSH') {
