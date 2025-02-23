@@ -28,14 +28,15 @@ pipeline {
         stage('DOCKER BUILD') {
             steps {
                 // Get some code from a GitHub repository
-                sh "docker build -t apotieri/app_maven_007 -f /var/jenkins_home/workspace/mavenbuild2/Dockerfile /var/jenkins_home/workspace/mavenbuild2"
+                sh "docker build -t apotieri/app_maven_008 -f /var/jenkins_home/workspace/mavenbuild2/Dockerfile /var/jenkins_home/workspace/mavenbuild2"
             }
         }
         stage('DOCKER PUSH') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'pwd', usernameVariable: 'usr')]) {
                    sh "docker login -u ${usr} -p ${pwd}"
-                   sh "docker push apotieri/app_maven_007"
+                   sh "docker push apotieri/app_maven_008"
+                   sh "docker run -d -p 8999:8080 apotieri/app_maven_008"
                     }                    
             }
         }
